@@ -1,38 +1,37 @@
-import React from 'react'
-import { Link, NavLink } from 'react-router-dom';
-import logo from '../logo.png'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
+import '../index.css';
 
-export default function NavBar() {
+
+const Navbar = () => {
+
+
+
   return (
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
- 
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <img alt="Brand" src={logo} height={60} width={60} />
-      
-    </div>
+    <>
+      <nav class="navbar navbar-static-top navbar-inverse bg-inverse" >
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbarSupportedContent">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <Link to="/" className='navbar-brand'>Home</Link>
+          </div>
+          <div class="collapse navbar-collapse navbarSupportedContent">
+           
+              
+          </div>
+        </div>
+      </nav>
 
-   
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        
-      </ul>
-     
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
+
+
+
+    </>
   )
 }
+
+export default Navbar;
