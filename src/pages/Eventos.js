@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import {getAll, getById, InsertEvento, UpdatePizza, DeletePizza} from '../services/EventoService';
+
 export default function Eventos() {
 
   const [data, setData] = useState([]);
@@ -7,17 +9,9 @@ export default function Eventos() {
 
   useEffect(() => {
 
+  const data = getAll()
+   setData(data)
 
-    axios
-      .get("http://localhost:3000/evento/")
-      .then((result) => {
-        console.log(result.data);
-        const response = result.data;
-        setData(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, []);
 
 
