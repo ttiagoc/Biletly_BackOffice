@@ -23,7 +23,7 @@ export default function Home() {
                                   
                                 </div>
                                 <div class="flex-grow-1">
-                                <Link to={"/eventos"}> <h4 class="mb-0">Ver eventos</h4> </Link>
+                                <Link to={"/eventos"}> <h4 class="mb-0">Eventos</h4> </Link>
                                     
                                 </div>
                             </div>
@@ -36,7 +36,7 @@ export default function Home() {
                                   
                                 </div>
                                 <div class="flex-grow-1">
-                                <Link to={"/nuevoEvento"}> <h4 class="mb-0">Nuevo evento</h4> </Link>
+                                <Link to={"/nuevoEvento"}> <h4 class="mb-0">Ticketeras</h4> </Link>
                                     
                                 </div>
                             </div>
