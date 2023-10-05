@@ -40,7 +40,7 @@ export default function Eventos() {
                 <td>{evento.nombre}</td>
                 <td>{evento.fecha}</td>
                 <td>{evento.descripcion}</td>
-                <button onClick={() => svc.DeleteEvento(evento.idEvento)}>Delete</button>
+                <button onClick={() => svc.Delete("evento/delete",evento.idEvento)}>Delete</button>
 
               </tr>
 
