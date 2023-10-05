@@ -1,45 +1,14 @@
 import React from 'react'
 import axios from 'axios'
+import GenericService from './GenericService'
+
 
 const URL_BASE = "http://localhost:3000/evento/";
 
-
-export const  getAll = async () => {
-  let response;
- await axios
-    .get(URL_BASE)
-    .then((result) => {
-      console.log(result.data);
-      response = result.data;
-    })
-    .catch((error) => {
-      console.log(error);
-      response = error
-    });
-
-  return response
-
-}
+export default class EventoService extends GenericService {
 
 
-
-export const getById = (id) => {
-
-  axios
-    .get(URL_BASE + "getById/" + id)
-    .then((result) => {
-      console.log(result.data);
-      const response = result.data;
-      return response
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-
-}
-
- export const InsertEvento = () => {
+   InsertEvento = () => {
 
   console.log("en InsertarEvento front")
 
@@ -79,7 +48,7 @@ export const getById = (id) => {
 
 }
 
-export function UpdateEvento() {
+  UpdateEvento() {
 
   let id = document.getElementById("idUpd").value
   let nombre = document.getElementById("nombre").value
@@ -120,22 +89,5 @@ export function UpdateEvento() {
 }
  
 
-export function DeleteEvento(id) {
-
  
-  let url = URL_BASE + "delete/" + id
-  
- 
-  
-  axios
-    .delete(url)
-    .then((result) => {
- 
-     console.log(result)
-
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 }
-

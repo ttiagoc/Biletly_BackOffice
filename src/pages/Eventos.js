@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { getAll, getById, InsertEvento, UpdateEvento, DeleteEvento } from '../services/EventoService';
+import EventoService from '../services/EventoService';
 
 export default function Eventos() {
 
   const [data, setData] = useState([]);
-
+  const svc = new EventoService()
 
   const CallGetAll = async() =>  {
-    const datos = await getAll()
+    const datos = await svc.getAll('evento')
     console.log("en call getall: " + datos)
     setData(datos)
   }
@@ -40,7 +40,7 @@ export default function Eventos() {
                 <td>{evento.nombre}</td>
                 <td>{evento.fecha}</td>
                 <td>{evento.descripcion}</td>
-                <button onClick={() => DeleteEvento(evento.idEvento)}>Delete</button>
+                <button onClick={() => svc.DeleteEvento(evento.idEvento)}>Delete</button>
 
               </tr>
 
