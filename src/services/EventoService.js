@@ -12,18 +12,20 @@ export default class EventoService extends GenericService {
 
   console.log("en InsertarEvento front")
 
+  //let id = document.getElementById("id").value
   let nombre = document.getElementById("nombre").value
   let fecha = document.getElementById("fecha").value
   let descripcion = document.getElementById("descripcion").value
-
+  let ticketera = document.getElementById("ticketera").value
   const params = {
-
+   // "id":id,
     "nombre": nombre,
     "fecha": fecha,
-    "descripcion": descripcion
+    "descripcion": descripcion,
+    "ticketera":ticketera
 
   };
-
+ // console.log(id)
   const options = {
     method: 'POST',
     url: URL_BASE + 'insertEvento',

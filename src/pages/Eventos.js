@@ -127,6 +127,7 @@ export default function Eventos() {
               <th scope="col">Nombre</th>
               <th scope="col">Fecha</th>
               <th scope="col">Descripcion</th>
+              <th scope="col">Funciones</th>
             </tr>
           </thead>
           <tbody>
@@ -140,7 +141,8 @@ export default function Eventos() {
                     <td>{evento.nombre}</td>
                     <td>{evento.fecha}</td>
                     <td>{evento.descripcion}</td>
-                    <button
+                   
+                   <td> <button
                       onClick={() =>
                         modalUpdate(
                           evento.id,
@@ -167,7 +169,7 @@ export default function Eventos() {
                       className="btn btn-danger"
                     >
                       Delete
-                    </button>
+                    </button></td>
                   </tr>
                 </>
               );
@@ -194,6 +196,7 @@ export default function Eventos() {
                   placeholder="event name"
                 />
               </div>
+               
               <div class="form-group">
                 <label for="exampleInputEmail1">Description</label>
                 <textarea
@@ -222,10 +225,10 @@ export default function Eventos() {
               <label for="">Ticketera:</label>
               <select class="form-select" aria-label="Default select example" style={{marginLeft:10}}>
                 <option selected>Ver ticketeras</option>
-                {data2.map((ticketera,index) => {
+                {data2.map((ticketera) => {
                   return (
                    
-                       <option value={index}>{ticketera.nombre}</option>
+                       <option value={ticketera.idTicketera} id="ticketera">{ticketera.nombre}</option>
 
                    
                   )

@@ -60,6 +60,7 @@ export default function Ticketeras() {
               <th scope="col">#</th>
               <th scope="col">Nombre</th>
               <th scope="col">Url</th>
+              <th scope="col">Funciones</th>
               
             </tr>
           </thead>
@@ -74,7 +75,7 @@ export default function Ticketeras() {
                   <td>{ticketera.nombre}</td>
                   <td>{ticketera.direccion}</td>
                  
-                  <button
+                <td>  <button
                     
                     className="btn"
                     style={{color:"#8D8685", borderRadius:5, margin: 5, boxShadow: "-3px 10px 38px 0px rgba(0,0,0,0.2)", WebkitBoxShadow: "-3px 10px 38px 0px rgba(0,0,0,0.2)"}}
@@ -87,7 +88,7 @@ export default function Ticketeras() {
                     className="btn btn-danger"
                   >
                     Delete
-                  </button>
+                  </button></td>
                 </tr>
             
                 </>
