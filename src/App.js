@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home'
 import Layout from './pages/Layout'
 import Eventos from './pages/Eventos'
-import CrearEvento from './pages/CrearEvento';
+import Ticketeras from './pages/Ticketeras';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path = "/eventos" element={<Eventos />} />
+        <Route path = "/ticketeras" element={<Ticketeras />} />
         
       </Route>
     </Routes>

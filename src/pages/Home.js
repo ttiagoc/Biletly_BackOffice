@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React from "react";
 import "../index.css";
 import { Link } from "react-router-dom";
 
@@ -36,7 +36,7 @@ export default function Home() {
                                   
                                 </div>
                                 <div class="flex-grow-1">
-                                <Link to={"/nuevoEvento"}> <h4 class="mb-0">Ticketeras</h4> </Link>
+                                <Link to={"/ticketeras"}> <h4 class="mb-0">Ticketeras</h4> </Link>
                                     
                                 </div>
                             </div>

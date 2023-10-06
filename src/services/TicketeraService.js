@@ -10,23 +10,18 @@ export default class TicketeraService extends GenericService {
 
    InsertTicketera = () => {
 
-  console.log("en InsertarEvento front")
-
   let nombre = document.getElementById("nombre").value
-  let fecha = document.getElementById("fecha").value
-  let descripcion = document.getElementById("descripcion").value
-
+  let direccion = document.getElementById("url").value
+  
   const params = {
 
     "nombre": nombre,
-    "fecha": fecha,
-    "descripcion": descripcion
-
+    "url": direccion,
   };
 
   const options = {
     method: 'POST',
-    url: URL_BASE + 'insertEvento',
+    url: URL_BASE + 'insertTicketera',
     headers: {
       'content-type': 'application/json',
       'X-RapidAPI-Host': 'microsoft-translator-text.p.rapidapi.com',
@@ -48,26 +43,24 @@ export default class TicketeraService extends GenericService {
 
 }
 
-  UpdatTicketera() {
+  UpdateTicketera() {
 
-  let id = document.getElementById("idUpd").value
+  let id = document.getElementById("idTicketera").value
   let nombre = document.getElementById("nombre").value
-  let fecha = document.getElementById("fecha").value
-  let descripcion = document.getElementById("descripcion").value
+  let url = document.getElementById("url").value
  
   let params = {
  
     "id": id,
     "nombre": nombre,
-    "fecha": fecha,
-    "descripcion": descripcion
+    "fecha": url,
  
   };
  
  
   const options = {
     method: 'PUT',
-    url: URL_BASE + 'updateEvento',
+    url: URL_BASE + 'updateTicketera',
     headers: {
       'content-type': 'application/json',
       'X-RapidAPI-Host': 'microsoft-translator-text.p.rapidapi.com',
