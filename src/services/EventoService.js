@@ -48,9 +48,9 @@ export default class EventoService extends GenericService {
 
 }
 
-  UpdateEvento() {
+  UpdateEvento(id) {
 
-  let id = document.getElementById("idUpd").value
+
   let nombre = document.getElementById("nombre").value
   let fecha = document.getElementById("fecha").value
   let descripcion = document.getElementById("descripcion").value
