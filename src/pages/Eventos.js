@@ -2,16 +2,27 @@ import React, { useEffect, useState } from "react";
 import EventoService from "../services/EventoService";
 import Modal from "react-modal";
 import TicketeraService from "../services/TicketeraService";
+import QRCode from "react-qr-code";
 
 export default function Eventos() {
   const [data, setData] = useState([]);
-  const [data2, setDataTicketeras] = useState([])
+  const [data2, setDataTicketeras] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalIsOpen2, setIsOpen2] = useState(true);
+  const [qrModal, setQrModal] = useState(false);
+  const [eventSelected, setEventSelected] = useState();
 
   const svc = new EventoService();
-  const svc2 = new TicketeraService()
+  const svc2 = new TicketeraService();
 
+  function showQrEvent(index) {
+    setEventSelected(index);
+    setQrModal(true);
+  }
+
+  function closeQrModal() {
+    setQrModal(false);
+  }
 
   function openModal() {
     setIsOpen(true);
@@ -90,7 +101,6 @@ export default function Eventos() {
               />
             </div>
 
-            
             <button type="submit" class="btn btn-success">
               Submit
             </button>
@@ -104,8 +114,8 @@ export default function Eventos() {
     const datos = await svc.getAll("evento");
     console.log("en call getall: " + datos);
     setData(datos);
-    const datosTicketeras = await svc2.getAll("ticketera")
-    setDataTicketeras(datosTicketeras)
+    const datosTicketeras = await svc2.getAll("ticketera");
+    setDataTicketeras(datosTicketeras);
   };
 
   useEffect(() => {
@@ -141,35 +151,50 @@ export default function Eventos() {
                     <td>{evento.nombre}</td>
                     <td>{evento.fecha}</td>
                     <td>{evento.descripcion}</td>
-                   
-                   <td> <button
-                      onClick={() =>
-                        modalUpdate(
-                          evento.id,
-                          evento.nombre,
-                          evento.descripcion,
-                          evento.fecha
-                        )
-                      }
-                      className="btn"
-                      style={{
-                        color: "#8D8685",
-                        borderRadius: 5,
-                        margin: 5,
-                        boxShadow: "-3px 10px 38px 0px rgba(0,0,0,0.2)",
-                        WebkitBoxShadow: "-3px 10px 38px 0px rgba(0,0,0,0.2)",
-                      }}
-                    >
-                      Update
-                    </button>
-                    <button
-                      onClick={() =>
-                        svc.Delete("evento/delete", evento.idEvento)
-                      }
-                      className="btn btn-danger"
-                    >
-                      Delete
-                    </button></td>
+
+                    <td>
+                      {" "}
+                      <button
+                        onClick={() =>
+                          modalUpdate(
+                            evento.id,
+                            evento.nombre,
+                            evento.descripcion,
+                            evento.fecha
+                          )
+                        }
+                        className="btn"
+                        style={{
+                          color: "#8D8685",
+                          borderRadius: 5,
+                          margin: 10,
+                          boxShadow: "-3px 10px 38px 0px rgba(0,0,0,0.2)",
+                          WebkitBoxShadow: "-3px 10px 38px 0px rgba(0,0,0,0.2)",
+                        }}
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() =>
+                          svc.Delete("evento/delete", evento.idEvento)
+                        }
+                        className="btn btn-danger"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        style={{
+                          background: "none",
+                          border: "none",
+                          color: "blue",
+                          fontWeight: "bold",
+                          margin: 5,
+                        }}
+                        onClick={() => showQrEvent(index)}
+                      >
+                        View Qr
+                      </button>
+                    </td>
                   </tr>
                 </>
               );
@@ -196,7 +221,7 @@ export default function Eventos() {
                   placeholder="event name"
                 />
               </div>
-               
+
               <div class="form-group">
                 <label for="exampleInputEmail1">Description</label>
                 <textarea
@@ -220,28 +245,50 @@ export default function Eventos() {
                   placeholder="Password"
                 />
               </div>
-                  
+
               <div className="form-group">
-              <label for="">Ticketera:</label>
-              <select class="form-select" aria-label="Default select example" style={{marginLeft:10}}>
-                <option selected>Ver ticketeras</option>
-                {data2.map((ticketera) => {
-                  return (
-                   
-                       <option value={ticketera.idTicketera} id="ticketera">{ticketera.nombre}</option>
-
-                   
-                  )
-                })
-                }
-              </select>
-            </div>
-
+                <label for="">Ticketera:</label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  style={{ marginLeft: 10 }}
+                >
+                  <option selected>Ver ticketeras</option>
+                  {data2.map((ticketera) => {
+                    return (
+                      <option value={ticketera.idTicketera} id="ticketera">
+                        {ticketera.nombre}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
 
               <button type="submit" class="btn btn-success">
                 Submit
               </button>
             </form>
+          </div>
+        </Modal>
+
+        <Modal
+          isOpen={qrModal}
+          onRequestClose={closeQrModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <div className="container-fluid">
+            <h3 className="text-center">
+              Qr from: {JSON.stringify(data[eventSelected].nombre)}
+            </h3>
+
+            <QRCode
+              title={JSON.stringify(data[eventSelected].nombre)}
+              value={JSON.stringify(data[eventSelected])}
+              style={{
+                margin: 'auto'
+              }}
+            />
           </div>
         </Modal>
       </div>
