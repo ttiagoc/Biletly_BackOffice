@@ -3,7 +3,7 @@ import axios from 'axios'
 import GenericService from './GenericService'
 
 
-const URL_BASE = "http://localhost:3000/ticketera/";
+const URL_BASE = "https://api-biletly.onrender.com/ticketera/";
 
 export default class TicketeraService extends GenericService {
 
@@ -16,7 +16,7 @@ export default class TicketeraService extends GenericService {
   const params = {
 
     "nombre": nombre,
-    "url": direccion,
+    "direccion": direccion,
   };
 
   const options = {
@@ -28,8 +28,8 @@ export default class TicketeraService extends GenericService {
     },
     data: params
   };
-
-  axios
+  const insertar = async () => {
+ await axios
     .request(options)
     .then((result) => {
       console.log(params)
@@ -40,7 +40,9 @@ export default class TicketeraService extends GenericService {
       console.log(error);
     });
 
+  }
 
+  insertar()
 }
 
   UpdateTicketera() {

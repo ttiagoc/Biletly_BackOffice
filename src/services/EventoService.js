@@ -3,7 +3,7 @@ import axios from 'axios'
 import GenericService from './GenericService'
 
 
-const URL_BASE = "http://localhost:3000/evento/";
+const URL_BASE = "https://api-biletly.onrender.com/evento/";
 
 export default class EventoService extends GenericService {
 
@@ -16,16 +16,15 @@ export default class EventoService extends GenericService {
   let nombre = document.getElementById("nombre").value
   let fecha = document.getElementById("fecha").value
   let descripcion = document.getElementById("descripcion").value
-  let ticketera = document.getElementById("ticketera").value
+  //let ticketera = document.getElementById("ticketera").value
   const params = {
-   // "id":id,
+ 
     "nombre": nombre,
     "fecha": fecha,
-    "descripcion": descripcion,
-    "ticketera":ticketera
+    "descripcion": descripcion
 
   };
- // console.log(id)
+ 
   const options = {
     method: 'POST',
     url: URL_BASE + 'insertEvento',
@@ -36,7 +35,8 @@ export default class EventoService extends GenericService {
     data: params
   };
 
-  axios
+  const insertar = async () => {
+    await axios
     .request(options)
     .then((result) => {
       console.log(params)
@@ -46,20 +46,23 @@ export default class EventoService extends GenericService {
     .catch((error) => {
       console.log(error);
     });
+  }
+  
+  insertar()
 
 
 }
 
   UpdateEvento(id) {
 
-
-  let nombre = document.getElementById("nombre").value
-  let fecha = document.getElementById("fecha").value
-  let descripcion = document.getElementById("descripcion").value
+  console.log("id: " + id)
+  let nombre = document.getElementById("nombreUPD").value
+  let fecha = document.getElementById("dateUPD").value
+  let descripcion = document.getElementById("descripcionUPD").value
  
   let params = {
  
-    "id": id,
+    "idEvento": id,
     "nombre": nombre,
     "fecha": fecha,
     "descripcion": descripcion
@@ -77,7 +80,8 @@ export default class EventoService extends GenericService {
     data: params
   };
  
-  axios
+  const update = async() => {
+    await axios
     .request(options)
     .then((result) => {
       console.log(params)
@@ -89,6 +93,11 @@ export default class EventoService extends GenericService {
     });
  
 }
+
+  update()
+
+  }
+ 
  
 
  

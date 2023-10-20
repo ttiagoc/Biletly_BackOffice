@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL_BASE = "http://localhost:3000/";
+const URL_BASE = "https://api-biletly.onrender.com/";
 
 export default class GenericService {
 
@@ -8,6 +8,7 @@ export default class GenericService {
     let response;
    await axios
       .get(URL_BASE + link)
+     
       .then((result) => {
         console.log(result.data);
         response = result.data;
@@ -46,7 +47,7 @@ export default class GenericService {
     axios
       .delete(url)
       .then((result) => {
-   
+       
        console.log(result)
   
       })

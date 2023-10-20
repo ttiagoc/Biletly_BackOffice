@@ -8,9 +8,10 @@ export default function Eventos() {
   const [data, setData] = useState([]);
   const [data2, setDataTicketeras] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalIsOpen2, setIsOpen2] = useState(true);
   const [qrModal, setQrModal] = useState(false);
   const [eventSelected, setEventSelected] = useState();
+
+  const [id, setId] = useState()
 
   const svc = new EventoService();
   const svc2 = new TicketeraService();
@@ -28,17 +29,10 @@ export default function Eventos() {
     setIsOpen(true);
   }
 
-  function openModalUpdate() {
-    setIsOpen2(true);
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
 
-  function closeModal2() {
-    setIsOpen2(false);
-  }
   const customStyles = {
     content: {
       top: "50%",
@@ -52,76 +46,32 @@ export default function Eventos() {
     },
   };
 
-  const modalUpdate = (id, nombre, descripcion, fecha) => {
-    console.log("jolas");
-    return (
-      <Modal
-        isOpen={modalIsOpen2}
-        onRequestClose={closeModal2}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <div className="container-fluid">
-          <h3 className="text-center">Update Event</h3>
-          <div style={{ height: 15 }}></div>
-          <form onSubmit={() => svc.UpdateEvento(id)}>
-            <div className="form-group">
-              <label for="exampleInputEmail1">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="event name"
-                value={nombre}
-              />
-            </div>
-            <div className="form-group">
-              <label for="exampleInputEmail1">Description</label>
-              <textarea
-                type="text"
-                class="form-control"
-                id="descripcion"
-                placeholder="event description"
-                style={{
-                  minWidth: "330px",
-                  maxWidth: "330px",
-                  minHeight: "60px",
-                }}
-                value={descripcion}
-              />
-            </div>
-            <div className="form-group">
-              <label for="exampleInputPassword1">Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="fecha"
-                placeholder="Password"
-                value={fecha}
-              />
-            </div>
-
-            <button type="submit" class="btn btn-success">
-              Submit
-            </button>
-          </form>
-        </div>
-      </Modal>
-    );
-  };
-
   const CallGetAll = async () => {
     const datos = await svc.getAll("evento");
-    console.log("en call getall: " + datos);
+
     setData(datos);
     const datosTicketeras = await svc2.getAll("ticketera");
     setDataTicketeras(datosTicketeras);
   };
 
   useEffect(() => {
-    console.log("en use effect");
     CallGetAll();
   }, []);
+
+
+  const HandleForm = (idF) => {
+    let id1 = document.getElementById('formUpdate')
+    id1.style.display = 'block'
+    setId(idF)
+  }
+
+  const HandleUpdate = async(e) => {
+    e.preventDefault()
+    await svc.UpdateEvento(id)
+    let id1 = document.getElementById('formUpdate')
+    id1.style.display = 'none'
+    alert("SE HA ACTUALIZADO EL EVENTO DE ID: " + id)
+  }
 
   return (
     <>
@@ -130,14 +80,24 @@ export default function Eventos() {
           New Event
         </button>
         <div style={{ height: 25 }}></div>
-        <table class="table">
+        <table className="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Fecha</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Funciones</th>
+              <th scope="col" key={1}>
+                #
+              </th>
+              <th scope="col" key={2}>
+                Nombre
+              </th>
+              <th scope="col" key={3}>
+                Fecha
+              </th>
+              <th scope="col" key={4}>
+                Descripcion
+              </th>
+              <th scope="col" key={5}>
+                Funciones
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -154,15 +114,9 @@ export default function Eventos() {
 
                     <td>
                       {" "}
+                      
                       <button
-                        onClick={() =>
-                          modalUpdate(
-                            evento.id,
-                            evento.nombre,
-                            evento.descripcion,
-                            evento.fecha
-                          )
-                        }
+                        onClick={() => HandleForm(evento.idEvento) && console.log(evento.id)}
                         className="btn"
                         style={{
                           color: "#8D8685",
@@ -175,6 +129,7 @@ export default function Eventos() {
                         Update
                       </button>
                       <button
+                        id="reload"
                         onClick={() =>
                           svc.Delete("evento/delete", evento.idEvento)
                         }
@@ -212,21 +167,21 @@ export default function Eventos() {
             <h3 className="text-center">Create Event</h3>
             <div style={{ height: 15 }}></div>
             <form onSubmit={() => svc.InsertEvento()}>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="exampleInputEmail1">Name</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="nombre"
                   placeholder="event name"
                 />
               </div>
 
-              <div class="form-group">
+              <div className="form-group">
                 <label for="exampleInputEmail1">Description</label>
                 <textarea
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="descripcion"
                   placeholder="event description"
                   style={{
@@ -236,11 +191,11 @@ export default function Eventos() {
                   }}
                 />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="exampleInputPassword1">Date</label>
                 <input
                   type="date"
-                  class="form-control"
+                  className="form-control"
                   id="fecha"
                   placeholder="Password"
                 />
@@ -249,7 +204,7 @@ export default function Eventos() {
               <div className="form-group">
                 <label for="">Ticketera:</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="Default select example"
                   style={{ marginLeft: 10 }}
                 >
@@ -264,7 +219,7 @@ export default function Eventos() {
                 </select>
               </div>
 
-              <button type="submit" class="btn btn-success">
+              <button type="submit" className="btn btn-success">
                 Submit
               </button>
             </form>
@@ -277,20 +232,67 @@ export default function Eventos() {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <div className="container-fluid">
-            <h3 className="text-center">
-              Qr from: {JSON.stringify(data[eventSelected].nombre)}
-            </h3>
+          {JSON.stringify(data[eventSelected]) ? (
+            <div className="container-fluid">
+              <h3 className="text-center">
+                Qr from: {JSON.stringify(data[eventSelected].nombre)}
+              </h3>
 
-            <QRCode
-              title={JSON.stringify(data[eventSelected].nombre)}
-              value={JSON.stringify(data[eventSelected])}
+              <QRCode
+                title={JSON.stringify(data[eventSelected].nombre)}
+                value={JSON.stringify(data[eventSelected])}
+                style={{
+                  display: "block",
+                  margin: "auto",
+                  marginTop: 40,
+                }}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+        </Modal>
+      </div>
+
+      <div className="container" style={{width:'350px' , height:'auto', borderRadius:8 , display:"none"}} id="formUpdate">
+        <form onSubmit={(e) => HandleUpdate(e)}>
+          <div className="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombreUPD"
+              placeholder="event name"
+            />
+          </div>
+          <div className="form-group">
+            <label for="exampleInputEmail1">Description</label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="descripcionUPD"
+              placeholder="event description"
               style={{
-                margin: 'auto'
+                minWidth: "330px",
+                maxWidth: "330px",
+                minHeight: "60px",
               }}
             />
           </div>
-        </Modal>
+          <div className="form-group">
+            <label for="exampleInputPassword1">Date</label>
+            <input
+              type='date'
+              id="dateUPD"
+              class="form-control"
+              placeholder="Password"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-success">
+            Submit
+          </button>
+        </form>
       </div>
     </>
   );
