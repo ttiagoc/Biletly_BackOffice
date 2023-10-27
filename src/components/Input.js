@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 
-export default function Input({type="text", placeholder,id,onChange}) {
+export default function Input({type="text", placeholder,id, setter}) {
   return (
     <>
 
-            <div class="form-group pt-3">
-                <input type={type} class="form-control" placeholder={placeholder} id={id} style={{margin:'5px'}} />
+            <div className="form-group pt-3">
+                <input type={type} className="form-control" placeholder={placeholder} id={id} style={{margin:'5px'}} required onChange={(e) => setter(e.target.value)} />
             </div>
     
     </>

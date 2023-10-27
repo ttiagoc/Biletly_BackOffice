@@ -1,29 +1,38 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
+const TOKEN_KEY = 'token';
 
 export const TokenContext = createContext();
 
  const TokenProvider = (props) => { 
 
-    const [token, setToken] = useState([]);
+    const [token, setToken] = useState();
 
-
-    const TokenSetter = (param) => {
-
-        setToken(param)
-
-
+    const loadToken = async () => {
+      let tokenStored = localStorage.getItem(TOKEN_KEY);
+      if(tokenStored){
+        setToken(tokenStored);
+      }
     }
+
+    const createToken = async (tokenToStore) => {
+      localStorage.setItem(TOKEN_KEY, tokenToStore);
+      setToken(tokenToStore);
+    }
+
+    useEffect(() => {
+      loadToken();
+    }, []);
+    
     return (
-        <TokenProvider.Provider
+        <TokenContext.Provider
           value={{
             token,
-            TokenSetter
-
+            createToken
           }}
         >
           {props.children}
-        </TokenProvider.Provider>
+        </TokenContext.Provider>
       );
 
 

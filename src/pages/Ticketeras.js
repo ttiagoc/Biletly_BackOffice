@@ -54,7 +54,7 @@ export default function Ticketeras() {
       <div className="container">
       <button onClick={openModal} className="btn btn-info" >New Ticket Holder</button>
       <div style={{height:25}}></div>
-        <table class="table">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -108,20 +108,20 @@ export default function Ticketeras() {
             <h3 className="text-center">Create Ticket Holder</h3>
             <div style={{height:15}}></div>
             <form onSubmit={() => svc.InsertTicketera()}>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="exampleInputEmail1">Name</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="nombre"
                   placeholder="event name"
                 />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="exampleInputEmail1">Url</label>
                 <textarea
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="url"
                   placeholder="event description"
                   style={{minWidth:'330px', maxWidth:'330px', minHeight:'60px'}}
@@ -129,7 +129,7 @@ export default function Ticketeras() {
               </div>
              
 
-              <button type="submit" class="btn btn-success">
+              <button type="submit" className="btn btn-success">
                 Submit
               </button>
             </form>

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import EventoService from "../services/EventoService";
 import Modal from "react-modal";
 import TicketeraService from "../services/TicketeraService";
 import QRCode from "react-qr-code";
+import {TokenContext} from '../context/TokenContext'
 
 export default function Eventos() {
   const [data, setData] = useState([]);
@@ -10,6 +11,7 @@ export default function Eventos() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [qrModal, setQrModal] = useState(false);
   const [eventSelected, setEventSelected] = useState();
+  const {token} = useContext(TokenContext);
 
   const [id, setId] = useState()
 
@@ -54,11 +56,6 @@ export default function Eventos() {
     setDataTicketeras(datosTicketeras);
   };
 
-  useEffect(() => {
-    CallGetAll();
-  }, []);
-
-
   const HandleForm = (idF) => {
     let id1 = document.getElementById('formUpdate')
     id1.style.display = 'block'
@@ -72,6 +69,21 @@ export default function Eventos() {
     id1.style.display = 'none'
     alert("SE HA ACTUALIZADO EL EVENTO DE ID: " + id)
   }
+
+  const createEvent = async (e) => {
+    try{
+      e.preventDefault();
+      console.log('token:', token)
+      await svc.InsertEvento(token);
+      alert('Evento creado')
+    }catch(error){
+      alert('No se pudo crear el evento')
+    }
+  }
+
+  useEffect(() => {
+    CallGetAll();
+  }, []);
 
   return (
     <>
@@ -166,7 +178,7 @@ export default function Eventos() {
           <div className="container-fluid">
             <h3 className="text-center">Create Event</h3>
             <div style={{ height: 15 }}></div>
-            <form onSubmit={() => svc.InsertEvento()}>
+            <form onSubmit={(e) => createEvent(e)}>
               <div className="form-group">
                 <label for="exampleInputEmail1">Name</label>
                 <input
@@ -260,7 +272,7 @@ export default function Eventos() {
             <label for="exampleInputEmail1">Name</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="nombreUPD"
               placeholder="event name"
             />
@@ -269,7 +281,7 @@ export default function Eventos() {
             <label for="exampleInputEmail1">Description</label>
             <textarea
               type="text"
-              class="form-control"
+              className="form-control"
               id="descripcionUPD"
               placeholder="event description"
               style={{
@@ -284,12 +296,12 @@ export default function Eventos() {
             <input
               type='date'
               id="dateUPD"
-              class="form-control"
+              className="form-control"
               placeholder="Password"
             />
           </div>
 
-          <button type="submit" class="btn btn-success">
+          <button type="submit" className="btn btn-success">
             Submit
           </button>
         </form>

@@ -4,12 +4,10 @@ import axios from "axios";
 const URL_BASE = "https://api-biletly.onrender.com/admin/login";
 
 export default class IniciarSesionService {
-  InsertClaves = async () => {
-    console.log("en InsertarClaves front");
+  InsertClaves = async (nombre, pass) => {
+    console.log("en InsertarClaves front:"+ nombre + pass);
 
     //let id = document.getElementById("id").value
-    let nombre = document.getElementById("name").value;
-    let pass = document.getElementById("password").value;
 
     const params = {
       usuario: nombre,
