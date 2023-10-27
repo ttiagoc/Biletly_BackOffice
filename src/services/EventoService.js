@@ -6,7 +6,7 @@ const URL_BASE = "https://api-biletly.onrender.com/evento/";
 
 export default class EventoService extends GenericService {
   
-  InsertEvento = (token) => {
+  InsertEvento = async (token) => {
     console.log("en InsertarEvento front");
     console.log(token)
 
@@ -32,19 +32,18 @@ export default class EventoService extends GenericService {
       data: params,
     };
 
-    const insertar = async () => {
+    let returnData;
+
       await axios
         .request(options)
         .then((result) => {
-          console.log(params);
-          console.log(result.data);
+          returnData = result.data.length;
         })
         .catch((error) => {
           console.log(error);
         });
-    };
 
-    insertar();
+    return returnData;
   };
 
   UpdateEvento(token, id) {

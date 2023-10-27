@@ -8,7 +8,7 @@ export default function Layout() {
     <>
     <NavBar></NavBar>
     <Outlet></Outlet>
-    <Footer></Footer>
+    {/* <Footer></Footer> */}
 
 </>
   )

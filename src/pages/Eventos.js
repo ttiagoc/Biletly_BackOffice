@@ -73,9 +73,13 @@ export default function Eventos() {
   const createEvent = async (e) => {
     try{
       e.preventDefault();
-      console.log('token:', token)
-      await svc.InsertEvento(token);
-      alert('Evento creado')
+      let cantCreados = await svc.InsertEvento(token);
+      console.log(cantCreados)
+      if(cantCreados){        
+        alert('Evento creado')
+      }else{
+        alert('No se pudo crear el evento')
+      }
     }catch(error){
       alert('No se pudo crear el evento')
     }
@@ -116,8 +120,8 @@ export default function Eventos() {
             {data.map((evento, index) => {
               return (
                 <>
-                  <tr>
-                    <th scope="row" key={index}>
+                  <tr key={index}>
+                    <th scope="row" >
                       {index + 1}
                     </th>
                     <td>{evento.nombre}</td>
@@ -221,9 +225,9 @@ export default function Eventos() {
                   style={{ marginLeft: 10 }}
                 >
                   <option selected>Ver ticketeras</option>
-                  {data2.map((ticketera) => {
+                  {data2.map((ticketera, index) => {
                     return (
-                      <option value={ticketera.idTicketera} id="ticketera">
+                      <option key={index} value={ticketera.idTicketera} id="ticketera">
                         {ticketera.nombre}
                       </option>
                     );
@@ -269,7 +273,7 @@ export default function Eventos() {
       <div className="container" style={{width:'350px' , height:'auto', borderRadius:8 , display:"none"}} id="formUpdate">
         <form onSubmit={(e) => HandleUpdate(e)}>
           <div className="form-group">
-            <label for="exampleInputEmail1">Name</label>
+            <label>Name</label>
             <input
               type="text"
               className="form-control"
@@ -278,7 +282,7 @@ export default function Eventos() {
             />
           </div>
           <div className="form-group">
-            <label for="exampleInputEmail1">Description</label>
+            <label >Description</label>
             <textarea
               type="text"
               className="form-control"
@@ -292,7 +296,7 @@ export default function Eventos() {
             />
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Date</label>
+            <label >Date</label>
             <input
               type='date'
               id="dateUPD"

@@ -16,6 +16,7 @@ export default function IniciarSesion() {
     const returnData = await svc.InsertClaves(user, password);
     if(returnData){
       createToken(returnData.token);
+      console.log(returnData.token)
       navigate("/home");
     }else{
       alert('Usuario o contraseña incorrectas')
