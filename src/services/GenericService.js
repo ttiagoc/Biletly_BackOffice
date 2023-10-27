@@ -39,13 +39,23 @@ export default class GenericService {
   
   }
 
-  Delete(link,id) {
+  Delete(link,id, token) {
 
  
-    let url = URL_BASE + link + '/' +  id   //delete
+    let urlDelete = URL_BASE + link + '/' +  id   //delete
+
+    const options = {
+      method: "DELETE",
+      url: urlDelete,
+      headers: {
+        "token": token,
+        "content-type": "application/json",
+        "X-RapidAPI-Host": "microsoft-translator-text.p.rapidapi.com",
+      },
+    };
     
     axios
-      .delete(url)
+      .request(options)
       .then((result) => {
        
        console.log(result)

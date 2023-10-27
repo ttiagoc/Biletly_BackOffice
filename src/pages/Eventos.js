@@ -64,7 +64,7 @@ export default function Eventos() {
 
   const HandleUpdate = async(e) => {
     e.preventDefault()
-    await svc.UpdateEvento(id)
+    await svc.UpdateEvento(token, id)
     let id1 = document.getElementById('formUpdate')
     id1.style.display = 'none'
     alert("SE HA ACTUALIZADO EL EVENTO DE ID: " + id)
@@ -143,7 +143,7 @@ export default function Eventos() {
                       <button
                         id="reload"
                         onClick={() =>
-                          svc.Delete("evento/delete", evento.idEvento)
+                          svc.Delete("evento/delete", evento.idEvento, token)
                         }
                         className="btn btn-danger"
                       >

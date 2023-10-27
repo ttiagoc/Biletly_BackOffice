@@ -47,7 +47,7 @@ export default class EventoService extends GenericService {
     insertar();
   };
 
-  UpdateEvento(id) {
+  UpdateEvento(token, id) {
     console.log("id: " + id);
     let nombre = document.getElementById("nombreUPD").value;
     let fecha = document.getElementById("dateUPD").value;
@@ -64,6 +64,7 @@ export default class EventoService extends GenericService {
       method: "PUT",
       url: URL_BASE + "updateEvento",
       headers: {
+        "token":token,
         "content-type": "application/json",
         "X-RapidAPI-Host": "microsoft-translator-text.p.rapidapi.com",
       },
