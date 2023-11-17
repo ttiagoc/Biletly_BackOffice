@@ -50,6 +50,9 @@ export default function Eventos() {
 
   const CallGetAll = async () => {
     const datos = await svc.getAll("evento");
+    datos.map(dato => {
+      dato.nombre = 'Nombre evento'
+    })
 
     setData(datos);
     const datosTicketeras = await svc2.getAll("ticketera");
